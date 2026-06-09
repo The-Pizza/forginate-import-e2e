@@ -1,0 +1,10 @@
+{
+  "name": "tempo",
+  "version": "0.1.0",
+  "description": "A tiny task timer CLI",
+  "bin": { "tempo": "./cli.js" },
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
