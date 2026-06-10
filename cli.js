@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 // tempo — tiny task timer CLI.
-// NOTE: only `start` is implemented. stop / list / reset are stubs — the
-// README promises them but the code does not deliver, which is exactly the
-// gap the audit should detect and gap-closing should fill.
+
+const store = require('./lib/store');
 
 const cmd = process.argv[2];
 
@@ -11,8 +10,28 @@ function start(task) {
     console.error('usage: tempo start <task>');
     process.exit(1);
   }
+  store.startTask(task);
   console.log(`started timing: ${task}`);
-  // TODO: persist start time to ~/.tempo.json
+}
+
+function stop() {
+  const result = store.stopTask();
+  if (!result) {
+    console.error('no active timer');
+    process.exit(1);
+  }
+  const seconds = Math.round(result.elapsed / 1000);
+  console.log(`stopped ${result.task}: ${seconds}s`);
+}
+
+function list() {
+  console.error("'list' is not implemented yet");
+  process.exit(2);
+}
+
+function reset() {
+  console.error("'reset' is not implemented yet");
+  process.exit(2);
 }
 
 switch (cmd) {
@@ -20,10 +39,14 @@ switch (cmd) {
     start(process.argv[3]);
     break;
   case 'stop':
+    stop();
+    break;
   case 'list':
+    list();
+    break;
   case 'reset':
-    console.error(`'${cmd}' is not implemented yet`);
-    process.exit(2);
+    reset();
+    break;
   default:
     console.error('usage: tempo <start|stop|list|reset>');
     process.exit(1);
