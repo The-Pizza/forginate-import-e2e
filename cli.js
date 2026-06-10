@@ -25,8 +25,35 @@ function stop() {
 }
 
 function list() {
-  console.error("'list' is not implemented yet");
-  process.exit(2);
+  const totals = store.getTotals();
+  const tasks = Object.keys(totals);
+  
+  if (tasks.length === 0) {
+    console.log('no tasks recorded');
+    return;
+  }
+  
+  tasks.forEach(task => {
+    const ms = totals[task];
+    const seconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    
+    const h = hours;
+    const m = minutes % 60;
+    const s = seconds % 60;
+    
+    let duration;
+    if (h > 0) {
+      duration = `${h}h ${m}m ${s}s`;
+    } else if (m > 0) {
+      duration = `${m}m ${s}s`;
+    } else {
+      duration = `${s}s`;
+    }
+    
+    console.log(`${task}: ${duration}`);
+  });
 }
 
 function reset() {
