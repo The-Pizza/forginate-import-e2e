@@ -4,7 +4,7 @@
   "description": "A tiny task timer CLI",
   "bin": { "tempo": "./cli.js" },
   "scripts": {
-    "test": "node run-tests.js"
+    "test": "node --test"
   },
   "license": "MIT"
 }
