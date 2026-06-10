@@ -25,40 +25,13 @@ function stop() {
 }
 
 function list() {
-  const totals = store.getTotals();
-  const tasks = Object.keys(totals);
-  
-  if (tasks.length === 0) {
-    console.log('no tasks recorded');
-    return;
-  }
-  
-  tasks.forEach(task => {
-    const ms = totals[task];
-    const seconds = Math.floor(ms / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    
-    const h = hours;
-    const m = minutes % 60;
-    const s = seconds % 60;
-    
-    let duration;
-    if (h > 0) {
-      duration = `${h}h ${m}m ${s}s`;
-    } else if (m > 0) {
-      duration = `${m}m ${s}s`;
-    } else {
-      duration = `${s}s`;
-    }
-    
-    console.log(`${task}: ${duration}`);
-  });
+  console.error('list: not implemented');
+  process.exit(2);
 }
 
 function reset() {
-  store.reset();
-  console.log('all task data cleared');
+  console.error('reset: not implemented');
+  process.exit(2);
 }
 
 switch (cmd) {
