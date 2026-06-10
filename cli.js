@@ -25,13 +25,37 @@ function stop() {
 }
 
 function list() {
-  console.error('list: not implemented');
-  process.exit(2);
+  const totals = store.getTotals();
+  const tasks = Object.keys(totals).sort();
+  
+  if (tasks.length === 0) {
+    console.log('no tasks recorded');
+    return;
+  }
+  
+  for (const task of tasks) {
+    const ms = totals[task];
+    const formatted = formatDuration(ms);
+    console.log(`${task}: ${formatted}`);
+  }
 }
 
 function reset() {
-  console.error('reset: not implemented');
-  process.exit(2);
+  store.reset();
+  console.log('all data cleared');
+}
+
+function formatDuration(ms) {
+  const seconds = Math.floor(ms / 1000) % 60;
+  const minutes = Math.floor(ms / 1000 / 60) % 60;
+  const hours = Math.floor(ms / 1000 / 60 / 60);
+  
+  const parts = [];
+  if (hours > 0) parts.push(`${hours}h`);
+  if (minutes > 0) parts.push(`${minutes}m`);
+  if (seconds > 0) parts.push(`${seconds}s`);
+  
+  return parts.length > 0 ? parts.join(' ') : '0s';
 }
 
 switch (cmd) {
