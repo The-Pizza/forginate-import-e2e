@@ -30,8 +30,8 @@ function list() {
 }
 
 function reset() {
-  console.error("'reset' is not implemented yet");
-  process.exit(2);
+  store.reset();
+  console.log('all task data cleared');
 }
 
 switch (cmd) {
